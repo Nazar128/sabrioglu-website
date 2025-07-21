@@ -156,7 +156,7 @@ const ContactForm = () => {
                 <FormItem>
                   <ReCAPTCHA
                     key={captchaKey} 
-                    sitekey="6Ld4c4orAAAAAGhOsyRICojWstrdPpKufqC8ATv1"
+                    sitekey="6LcqiIorAAAAABB5wmbUp0pq0yAMyWSbUQFwt4TJ"
                     onChange={(token) => {
                       form.setValue("recaptcha", token || "");
                     }}
