@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import { usePathname } from "next/navigation";
@@ -77,9 +77,7 @@ const Navbar = () => {
         </nav>
 
         <div className="flex items-center space-x-2">
-          {/* <Button>
-            <Search />
-          </Button> */}
+        
           <MobileMenu />
         </div>
       </div>
