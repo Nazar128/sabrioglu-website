@@ -1,8 +1,8 @@
 "use client";
-import {auth} from '@/lib/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from "@/lib/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -13,8 +13,12 @@ export default function LoginPage() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/admin");
-    } catch (err: any) {
-      alert("Giriş başarısız: " + err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        alert("Giriş başarısız: " + err.message);
+      } else {
+        alert("Bilinmeyen bir hata oluştu.");
+      }
     }
   };
 
@@ -22,7 +26,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-sm bg-white/5 backdrop-blur-md border border-white/10 shadow-xl rounded-2xl p-8 text-white space-y-6">
         <h1 className="text-2xl font-semibold text-center">Admin Girişi</h1>
-        
+
         <div>
           <label className="text-sm font-medium mb-1 block">Email</label>
           <input
