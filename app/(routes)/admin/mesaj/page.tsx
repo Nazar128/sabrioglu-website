@@ -23,17 +23,17 @@ export default function AdminMessages() {
   const router = useRouter();
 
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        router.push("/login");
-      } else {
-        setLoading(false);
-      }
-    });
+useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      router.push("/login");
+    }
+    setLoading(false); 
+  });
 
-    return () => unsubscribe();
-  }, [router]);
+  return () => unsubscribe();
+}, [router]);
+
 
   
   useEffect(() => {

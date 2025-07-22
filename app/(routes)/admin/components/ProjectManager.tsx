@@ -118,7 +118,7 @@ export default function ProjectManager() {
           <select
             value={durum}
             onChange={(e) => setDurum(e.target.value as Durum)}
-            className="w-full bg-white/10 border border-white/20 rounded px-4 py-2"
+            className="w-full bg-white/10 border border-white/20 text-gray-300 rounded px-4 py-2"
           >
             <option value="devam">Devam</option>
             <option value="bitmiş">Bitmiş</option>

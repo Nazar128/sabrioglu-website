@@ -31,7 +31,7 @@ export default function LoginPage() {
           <label className="text-sm font-medium mb-1 block">Email</label>
           <input
             type="email"
-            placeholder="ornek@mail.com"
+            placeholder=""
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-300"
@@ -42,7 +42,7 @@ export default function LoginPage() {
           <label className="text-sm font-medium mb-1 block">Şifre</label>
           <input
             type="password"
-            placeholder="••••••••"
+            placeholder=""
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-300"
