@@ -1,6 +1,6 @@
 "use client";
 
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -11,17 +11,17 @@ import {
   FormControl,
   FormField,
   FormItem,
-
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-
+// SSR hatasını engellemek için dinamik import
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
   ssr: false,
 });
 
+// Form şeması
 const formSchema = z.object({
   username: z.string().min(2, { message: "En az 2 karakter" }),
   email: z.string().email({ message: "Geçerli bir e-posta giriniz." }),
@@ -41,41 +41,47 @@ const ContactForm = () => {
   });
 
   const [captchaKey, setCaptchaKey] = useState<number>(Date.now());
-
   const [notification, setNotification] = useState<{
     type: "success" | "error";
     message: string;
   } | null>(null);
 
+  // Form gönderimi
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      console.log("Gönderilen değerler:", values);
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
 
+      const result = await response.json();
+      console.log("Sunucu yanıtı:", result);
+
       if (response.ok) {
         setNotification({
           type: "success",
           message: "✅ Mesajınız başarıyla gönderildi!",
         });
-
         form.reset();
-        setCaptchaKey(Date.now()); 
+        setCaptchaKey(Date.now()); // reCAPTCHA reset
       } else {
         setNotification({
           type: "error",
-          message: "❌ Mesaj gönderilemedi, lütfen tekrar deneyin.",
+          message: result.message || "❌ Mesaj gönderilemedi.",
         });
       }
     } catch (error) {
-      console.error("Error:", error);
-      setNotification({ type: "error", message: "❌ Sunucu hatası oluştu." });
+      console.error("Hata:", error);
+      setNotification({
+        type: "error",
+        message: "❌ Beklenmeyen bir hata oluştu.",
+      });
     }
 
-   
-    setTimeout(() => setNotification(null), 3000);
+    setTimeout(() => setNotification(null), 4000);
   }
 
   return (
@@ -97,6 +103,7 @@ const ContactForm = () => {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            {/* İsim */}
             <FormField
               control={form.control}
               name="username"
@@ -106,14 +113,15 @@ const ContactForm = () => {
                     <Input
                       {...field}
                       placeholder="Adınız"
-                      className="w-full px-4 py-2 rounded-full bg-gradient-to-l from-[#000022] via-[#000044] to-[#000022] placeholder-white text-white focus:outline-none focus:ring-2 focus:ring-white/50"
+                      className="input-style"
                     />
                   </FormControl>
-                  <FormMessage className="text-xs text-red-200" />
+                  <FormMessage />
                 </FormItem>
               )}
             />
 
+            {/* Email */}
             <FormField
               control={form.control}
               name="email"
@@ -123,14 +131,15 @@ const ContactForm = () => {
                     <Input
                       {...field}
                       placeholder="example@gmail.com"
-                      className="w-full px-4 py-2 bg-gradient-to-l from-[#000022] via-[#000044] to-[#000022] rounded-full placeholder-white text-white focus:outline-none focus:ring-2 focus:ring-white/50"
+                      className="input-style"
                     />
                   </FormControl>
-                  <FormMessage className="text-xs text-red-200" />
+                  <FormMessage />
                 </FormItem>
               )}
             />
 
+            {/* Mesaj */}
             <FormField
               control={form.control}
               name="message"
@@ -141,31 +150,29 @@ const ContactForm = () => {
                       {...field}
                       placeholder="Mesajınız"
                       rows={4}
-                      className="w-full px-4 py-2 rounded-2xl bg-gradient-to-l from-[#000022] via-[#000044] to-[#000022] placeholder-white text-white resize-none focus:outline-none focus:ring-2 focus:ring-white/50"
+                      className="input-style resize-none rounded-2xl"
                     />
                   </FormControl>
-                  <FormMessage className="text-xs text-red-200" />
+                  <FormMessage />
                 </FormItem>
               )}
             />
 
+            {/* reCAPTCHA */}
             <FormField
               control={form.control}
               name="recaptcha"
               render={() => (
                 <FormItem>
                   <ReCAPTCHA
-                    key={captchaKey} 
+                    key={captchaKey}
                     sitekey="6LejVYsrAAAAAFLazF9jxRu-hxM6sPXkc1TD3n3Z"
-                    onChange={(token) => {
-                      form.setValue("recaptcha", token || "");
-                    }}
-                    onExpired={() => {
-                      form.setValue("recaptcha", "");
-                    }}
+                    onChange={(token) =>
+                      form.setValue("recaptcha", token || "")
+                    }
+                    onExpired={() => form.setValue("recaptcha", "")}
                   />
-
-                  <FormMessage className="text-xs text-red-200" />
+                  <FormMessage />
                 </FormItem>
               )}
             />
