@@ -6,7 +6,7 @@ import React from "react";
 
 const ContactPage = () => {
   return (
-    <div className="flex items-center justify-center px-4 py-24 md:mt-16">
+    <div className="flex items-center justify-center px-4 py-20 md:mt-16">
       <div className="w-full max-w-xl sm:max-w-4xl lg:max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10  backdrop-blur-md border-2 border-white/20 shadow-2xl rounded-2xl md:p-10 text-white">
         
         
