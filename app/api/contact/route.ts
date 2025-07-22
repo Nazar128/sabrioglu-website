@@ -9,10 +9,9 @@ const resend = new Resend(process.env.RESEND_API_KEY!);
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-
     const { username, email, message, recaptcha } = body;
 
-    // Boş alan kontrolü
+    // 1. Giriş doğrulama
     if (!username || !email || !message || !recaptcha) {
       return NextResponse.json(
         { message: "Tüm alanlar doldurulmalıdır." },
@@ -20,22 +19,29 @@ export async function POST(req: Request) {
       );
     }
 
-    // ✅ reCAPTCHA doğrulama
-    const verifyURL = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptcha}`;
+    // 2. reCAPTCHA doğrulama
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY!;
+    const verifyURL = "https://www.google.com/recaptcha/api/siteverify";
 
-    const recaptchaResponse = await fetch(verifyURL, { method: "POST" });
-    const recaptchaResult = await recaptchaResponse.json();
+    const captchaRes = await fetch(verifyURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `secret=${secretKey}&response=${recaptcha}`,
+    });
 
-    console.log("reCAPTCHA yanıtı:", recaptchaResult);
+    const captchaData = await captchaRes.json();
+    console.log("reCAPTCHA yanıtı:", captchaData);
 
-    if (!recaptchaResult.success) {
+    if (!captchaData.success) {
       return NextResponse.json(
         { message: "reCAPTCHA doğrulaması başarısız." },
         { status: 400 }
       );
     }
 
-    // ✅ XSS koruması (sanitize)
+    // 3. XSS koruması
     const cleanUsername = sanitizeHtml(username, {
       allowedTags: [],
       allowedAttributes: {},
@@ -49,20 +55,20 @@ export async function POST(req: Request) {
       allowedAttributes: { a: ["href", "target"] },
     });
 
-    
+    // 4. E-posta gönderimi
     await resend.emails.send({
       from: "info@sabriogluhafriyat.com.tr",
       to: "info@sabriogluhafriyat.com.tr",
       subject: "Yeni İletişim Formu",
       html: `
-    <h2>Yeni Mesaj</h2>
-    <p><strong>İsim:</strong> ${cleanUsername}</p>
-    <p><strong>Email:</strong> ${cleanEmail}</p>
-    <p><strong>Mesaj:</strong><br>${cleanMessage.replace(/\n/g, "<br>")}</p>
-  `,
+        <h2>Yeni Mesaj</h2>
+        <p><strong>İsim:</strong> ${cleanUsername}</p>
+        <p><strong>Email:</strong> ${cleanEmail}</p>
+        <p><strong>Mesaj:</strong><br>${cleanMessage.replace(/\n/g, "<br>")}</p>
+      `,
     });
 
-   
+    // 5. Firestore kaydı
     await addDoc(collection(db, "gelenKutusu"), {
       username: cleanUsername,
       email: cleanEmail,
