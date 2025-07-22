@@ -83,7 +83,7 @@ const ContactForm = () => {
 
   return (
     <div className="w-full max-w-lg mx-auto p-2 text-white">
-      <div className="w-full  shadow-xl p-2 md:p-10 rounded-2xl space-y-6 border border-gray-200">
+      <div className="w-full  shadow-xl p-2 md:p-10 rounded-2xl space-y-4 border border-gray-200">
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-2">İletişim</h2>
         </div>
@@ -101,8 +101,8 @@ const ContactForm = () => {
         )}
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-            {/* Ad */}
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+            
             <FormField
               control={form.control}
               name="username"
@@ -112,7 +112,7 @@ const ContactForm = () => {
                     <Input
                       {...field}
                       placeholder="Adınız"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                      className="w-full px-4 py-1.5 rounded-xl border border-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
                     />
                   </FormControl>
                   <FormMessage />
@@ -120,7 +120,7 @@ const ContactForm = () => {
               )}
             />
 
-            {/* Email */}
+            
             <FormField
               control={form.control}
               name="email"
@@ -131,7 +131,7 @@ const ContactForm = () => {
                       {...field}
                       placeholder="example@gmail.com"
                       type="email"
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                      className="w-full px-4 py-1.5 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
                     />
                   </FormControl>
                   <FormMessage />
@@ -139,7 +139,7 @@ const ContactForm = () => {
               )}
             />
 
-            {/* Mesaj */}
+     
             <FormField
               control={form.control}
               name="message"
@@ -150,7 +150,7 @@ const ContactForm = () => {
                       {...field}
                       placeholder="Mesajınız"
                       rows={4}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 transition resize-none"
+                      className="w-full px-4 py-1.5 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 transition resize-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -164,7 +164,7 @@ const ContactForm = () => {
               render={() => (
                 <FormItem>
                   <div className="p-2">
-                    <div className="transform origin-top-left scale-[0.85] sm:scale-90 md:scale-100 transition-transform duration-300">
+                    <div className="transform origin-top-left scale-[0.80] sm:scale-85 md:scale-95 transition-transform duration-300">
                       <ReCAPTCHA
                         key={captchaKey}
                         sitekey="6Ld1Z4srAAAAAKkZc3-dxfrCCaN6RJHqKU3FOyPF"

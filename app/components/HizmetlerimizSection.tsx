@@ -33,7 +33,7 @@ const HizmetlerimizSection = () => {
           <img
             src="/images/hizmetlerimiz.jpeg"
             alt="Hizmetlerimiz"
-            className="w-full h-auto rounded-lg object-cover shadow-lg"
+            className="w-full h-auto rounded-xl object-cover shadow-lg"
           />
         </div>
       </div>
