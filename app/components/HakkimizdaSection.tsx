@@ -14,7 +14,7 @@ const HakkimizdaSection = () => {
 
         <div className="flex-1">
           <h2 className="text-4xl font-bold mb-4">{title}</h2>
-          <p className="text-lg leading-relaxed mb-6 text-blue-950">{text}</p>
+          <p className="text-md leading-relaxed mb-6 text-blue-950">{text}</p>
 
           <Link
             href="/hakkimizda"

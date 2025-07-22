@@ -15,7 +15,7 @@ const HizmetlerimizSection = () => {
             Tüm altyapı ve üstyapı çözümleri tek çatı altında
           </p>
 
-          <p className="text-lg leading-relaxed mb-6">
+          <p className="text-md leading-relaxed mb-6">
             Firmamız; altyapı ve üstyapı alanlarında geniş bir hizmet yelpazesi sunmaktadır. Kanalizasyon, taş duvar, parke, bordür, beton döküm, peyzaj düzenlemeleri, hafriyat ve dere ıslahı gibi işlerimizi titizlikle ve zamanında tamamlıyoruz. 
             Deneyimli ekibimiz, ihtiyaçlarınıza uygun pratik ve sağlam çözümlerle her projeyi başarılı şekilde sonuçlandırmaktadır. Müşteri memnuniyeti ve iş kalitesi bizim için her zaman önceliklidir.
           </p>
