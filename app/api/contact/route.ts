@@ -36,27 +36,33 @@ export async function POST(req: Request) {
     }
 
     // ✅ XSS koruması (sanitize)
-    const cleanUsername = sanitizeHtml(username, { allowedTags: [], allowedAttributes: {} });
-    const cleanEmail = sanitizeHtml(email, { allowedTags: [], allowedAttributes: {} });
+    const cleanUsername = sanitizeHtml(username, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+    const cleanEmail = sanitizeHtml(email, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
     const cleanMessage = sanitizeHtml(message, {
       allowedTags: ["b", "i", "em", "strong", "a", "br", "p"],
       allowedAttributes: { a: ["href", "target"] },
     });
 
-    // ✅ E-posta gönderimi
-    const emailResponse = await resend.emails.send({
+    
+    await resend.emails.send({
       from: "info@sabriogluhafriyat.com.tr",
       to: "info@sabriogluhafriyat.com.tr",
       subject: "Yeni İletişim Formu",
       html: `
-        <h2>Yeni Mesaj</h2>
-        <p><strong>İsim:</strong> ${cleanUsername}</p>
-        <p><strong>Email:</strong> ${cleanEmail}</p>
-        <p><strong>Mesaj:</strong><br>${cleanMessage.replace(/\n/g, "<br>")}</p>
-      `,
+    <h2>Yeni Mesaj</h2>
+    <p><strong>İsim:</strong> ${cleanUsername}</p>
+    <p><strong>Email:</strong> ${cleanEmail}</p>
+    <p><strong>Mesaj:</strong><br>${cleanMessage.replace(/\n/g, "<br>")}</p>
+  `,
     });
 
-    // ✅ Firestore'a kayıt
+   
     await addDoc(collection(db, "gelenKutusu"), {
       username: cleanUsername,
       email: cleanEmail,

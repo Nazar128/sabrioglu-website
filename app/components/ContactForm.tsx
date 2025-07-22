@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-// SSR hatasını engellemek için dinamik import
+
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
   ssr: false,
 });
@@ -66,7 +66,7 @@ const ContactForm = () => {
           message: "✅ Mesajınız başarıyla gönderildi!",
         });
         form.reset();
-        setCaptchaKey(Date.now()); // reCAPTCHA reset
+        setCaptchaKey(Date.now()); 
       } else {
         setNotification({
           type: "error",
