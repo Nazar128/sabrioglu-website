@@ -16,12 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-
 const ReCAPTCHA = dynamic(() => import("react-google-recaptcha"), {
   ssr: false,
 });
 
-// Form şeması
 const formSchema = z.object({
   username: z.string().min(2, { message: "En az 2 karakter" }),
   email: z.string().email({ message: "Geçerli bir e-posta giriniz." }),
@@ -46,7 +44,6 @@ const ContactForm = () => {
     message: string;
   } | null>(null);
 
-  // Form gönderimi
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       console.log("Gönderilen değerler:", values);
@@ -66,7 +63,7 @@ const ContactForm = () => {
           message: "✅ Mesajınız başarıyla gönderildi!",
         });
         form.reset();
-        setCaptchaKey(Date.now()); 
+        setCaptchaKey(Date.now());
       } else {
         setNotification({
           type: "error",
@@ -85,13 +82,15 @@ const ContactForm = () => {
   }
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <div className="w-full border border-white/20 shadow-xl p-6 md:p-10 rounded-xl text-white">
-        <h2 className="text-2xl font-bold text-center mb-6">İletişim</h2>
+    <div className="w-full max-w-lg mx-auto p-2 text-white">
+      <div className="w-full  shadow-xl p-2 md:p-10 rounded-2xl space-y-6 border border-gray-200">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold mb-2">İletişim</h2>
+        </div>
 
         {notification && (
           <div
-            className={`mb-4 p-3 rounded-md text-sm font-medium transition-all duration-300 ${
+            className={`p-3 rounded-lg text-sm font-medium text-center transition-all duration-300 ${
               notification.type === "success"
                 ? "bg-green-100 text-green-800"
                 : "bg-red-100 text-red-800"
@@ -102,8 +101,8 @@ const ContactForm = () => {
         )}
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            {/* İsim */}
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+            {/* Ad */}
             <FormField
               control={form.control}
               name="username"
@@ -113,7 +112,7 @@ const ContactForm = () => {
                     <Input
                       {...field}
                       placeholder="Adınız"
-                      className="input-style"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
                     />
                   </FormControl>
                   <FormMessage />
@@ -131,7 +130,8 @@ const ContactForm = () => {
                     <Input
                       {...field}
                       placeholder="example@gmail.com"
-                      className="input-style"
+                      type="email"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
                     />
                   </FormControl>
                   <FormMessage />
@@ -150,7 +150,7 @@ const ContactForm = () => {
                       {...field}
                       placeholder="Mesajınız"
                       rows={4}
-                      className="input-style resize-none rounded-2xl"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 transition resize-none"
                     />
                   </FormControl>
                   <FormMessage />
@@ -158,28 +158,32 @@ const ContactForm = () => {
               )}
             />
 
-            {/* reCAPTCHA */}
             <FormField
               control={form.control}
               name="recaptcha"
               render={() => (
                 <FormItem>
-                  <ReCAPTCHA
-                    key={captchaKey}
-                    sitekey="6Ld1Z4srAAAAAKkZc3-dxfrCCaN6RJHqKU3FOyPF"
-                    onChange={(token) =>
-                      form.setValue("recaptcha", token || "")
-                    }
-                    onExpired={() => form.setValue("recaptcha", "")}
-                  />
+                  <div className="p-2">
+                    <div className="transform origin-top-left scale-[0.85] sm:scale-90 md:scale-100 transition-transform duration-300">
+                      <ReCAPTCHA
+                        key={captchaKey}
+                        sitekey="6Ld1Z4srAAAAAKkZc3-dxfrCCaN6RJHqKU3FOyPF"
+                        onChange={(token) =>
+                          form.setValue("recaptcha", token || "")
+                        }
+                        onExpired={() => form.setValue("recaptcha", "")}
+                      />
+                    </div>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
+          
             <Button
               type="submit"
-              className="w-full mt-2 py-2 rounded-full bg-gradient-to-l from-[#000022] via-[#000044] to-[#000022] text-white font-semibold hover:brightness-125 transition"
+              className="w-full mt-4 py-3 rounded-full bg-gradient-to-r from-blue-800 via-blue-600 to-blue-800 text-white font-semibold hover:brightness-110 transition"
             >
               Gönder
             </Button>

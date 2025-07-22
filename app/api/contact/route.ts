@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { username, email, message, recaptcha } = body;
 
-    // 1. Boş alan kontrolü
+   
     if (!username || !email || !message || !recaptcha) {
       return NextResponse.json(
         { message: "Tüm alanlar doldurulmalıdır." },
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2. reCAPTCHA doğrulaması
+    
     const secretKey = process.env.RECAPTCHA_SECRET_KEY;
     if (!secretKey) {
       console.error("RECAPTCHA_SECRET_KEY tanımlı değil.");
@@ -49,7 +49,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // 3. XSS temizliği
     const cleanUsername = sanitizeHtml(username, { allowedTags: [], allowedAttributes: {} });
     const cleanEmail = sanitizeHtml(email, { allowedTags: [], allowedAttributes: {} });
     const cleanMessage = sanitizeHtml(message, {
@@ -57,7 +56,7 @@ export async function POST(req: Request) {
       allowedAttributes: { a: ["href", "target"] },
     });
 
-    // 4. Mail gönderimi
+
     await resend.emails.send({
       from: "info@sabriogluhafriyat.com.tr",
       to: "info@sabriogluhafriyat.com.tr",
@@ -70,7 +69,7 @@ export async function POST(req: Request) {
       `,
     });
 
-    // 5. Firestore kayıt
+   
     await addDoc(collection(db, "gelenKutusu"), {
       username: cleanUsername,
       email: cleanEmail,

@@ -10,12 +10,10 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
 const turSirasi = [
-  "Kilit ve Bordür Taşı Uygulamaları",
-  "Dere Islahı",
-  "Doğal Taş Uygulamaları",
-  "Dekoratif Taş Duvar Yapımı",
+  "Taş Duvar, Parke, Bordür",
+  "Altyapı, Dere Islahı Uygulamaları",
+  "Üst Yapı",
   "Hafriyat ve Kazı Çalışmaları",
-  "Üst Yapı ve Yol Açma Hizmetleri",
   "Yol Yapım ve Düzenleme",
   "Peyzaj ve Çevre Düzenleme",
   
@@ -59,7 +57,7 @@ export default function Galeriler() {
           id: doc.id,
           title: d.title || "Başlıksız",
           tur: d.tur || "Bilinmiyor",
-          type: d.type || (media.endsWith(".mp4") ? "video" : "image"), // Eğer 'type' yoksa dosya uzantısına göre tahmin
+          type: d.type || (media.endsWith(".mp4") ? "video" : "image"), 
           media,
         };
       });

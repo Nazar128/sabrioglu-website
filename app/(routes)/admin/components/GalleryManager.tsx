@@ -13,13 +13,10 @@ import {
 import { uploadFile } from "@/lib/firebaseUpload";
 
 export const turler = [
-  "Kilit ve Bordür Taşı Uygulamaları",
-  "Dere Islahı",
-  "Parke ve Kilit Taşı Döşeme",
-  "Doğal Taş Uygulamaları",
-  "Dekoratif Taş Duvar Yapımı",
+ "Taş Duvar, Parke, Bordür",
+  "Altyapı, Dere Islahı Uygulamaları",
+  "Üst Yapı",
   "Hafriyat ve Kazı Çalışmaları",
-  "Üst Yapı ve Yol Açma Hizmetleri",
   "Yol Yapım ve Düzenleme",
   "Peyzaj ve Çevre Düzenleme",
 ] as const;
@@ -36,7 +33,7 @@ type Fotograf = {
 export default function GalleryManager() {
   const [gallery, setGallery] = useState<Fotograf[]>([]);
   const [title, setTitle] = useState("");
-  const [tur, setTur] = useState<FotoTur>("Doğal Taş Uygulamaları");
+  const [tur, setTur] = useState<FotoTur>("Taş Duvar, Parke, Bordür");
   const [file, setFile] = useState<File | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -88,7 +85,7 @@ export default function GalleryManager() {
     }
 
     setTitle("");
-    setTur("Doğal Taş Uygulamaları");
+    setTur("Taş Duvar, Parke, Bordür");
     setFile(null);
     setEditingId(null);
     fetchGallery();

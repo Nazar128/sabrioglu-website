@@ -1,48 +1,41 @@
-"use client";
-import React from "react";
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
-
-import { hizmetVerileri } from "../data/HizmetVerileri";
-import hizmetIcons from "../utils/HizmetIcons";
+import React from "react";
+import { FaArrowRight } from "react-icons/fa";
 
 const HizmetlerimizSection = () => {
-  const ilkUcHizmet = hizmetVerileri.slice(0, 3);
-
   return (
-    <section className="max-w-7xl mx-auto px-6 py-16">
-      <h2 className="text-4xl font-bold text-center mb-12 text-blue-950">Hizmetlerimiz</h2>
+    <section className="max-w-full mx-auto px-6 py-12 md:px-20 text-blue-950 font-inter">
+      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8 p-4 md:p-8">
+        
+        
+        <div className="flex-1 text-center md:text-left order-2 md:order-1">
+          <h2 className="text-4xl font-bold mb-2">Hizmetlerimiz</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        {ilkUcHizmet.map(({ id, iconName, title, text }) => {
-          const key = iconName as keyof typeof hizmetIcons;
-          const IconComponent = hizmetIcons[key];
+          <p className="text-blue-700 font-semibold mb-4">
+            Tüm altyapı ve üstyapı çözümleri tek çatı altında
+          </p>
 
-          return (
-            <Card
-              key={id}
-              className="flex flex-col items-center justify-center p-8 text-center rounded-xl shadow-lg bg-gradient-to-l from-[#000022] via-[#000044] to-[#000022] hover:shadow-2xl transition-shadow duration-300 cursor-pointer"
-            >
-              {IconComponent && (
-                <IconComponent className="text-white" size={64} aria-label={`${title} ikonu`} />
-              )}
+          <p className="text-lg leading-relaxed mb-6">
+            Firmamız; altyapı ve üstyapı alanlarında geniş bir hizmet yelpazesi sunmaktadır. Kanalizasyon, taş duvar, parke, bordür, beton döküm, peyzaj düzenlemeleri, hafriyat ve dere ıslahı gibi işlerimizi titizlikle ve zamanında tamamlıyoruz. 
+            Deneyimli ekibimiz, ihtiyaçlarınıza uygun pratik ve sağlam çözümlerle her projeyi başarılı şekilde sonuçlandırmaktadır. Müşteri memnuniyeti ve iş kalitesi bizim için her zaman önceliklidir.
+          </p>
 
-              <CardContent>
-                <h3 className="text-2xl font-semibold text-white mb-2">{title}</h3>
-                <p className="text-gray-100">{text}</p>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
+          <Link
+            href="/hizmetlerimiz"
+            className="inline-flex items-center justify-center gap-2 bg-blue-950 text-white px-6 py-2 rounded-full hover:bg-blue-800 transition mx-auto md:mx-0"
+          >
+            Tüm Hizmetler <FaArrowRight />
+          </Link>
+        </div>
 
-      <div className="mt-12 text-center">
-        <Link
-          href="/hizmetlerimiz"
-          className="inline-block px-6 py-3 bg-blue-950 text-white font-semibold rounded-full hover:bg-blue-800 transition"
-        >
-          Devamı
-        </Link>
+      
+        <div className="w-3/4 max-w-sm md:max-w-md flex-shrink-0 order-1 md:order-2">
+          <img
+            src="/images/hizmetlerimiz.jpeg"
+            alt="Hizmetlerimiz"
+            className="w-full h-auto rounded-lg object-cover shadow-lg"
+          />
+        </div>
       </div>
     </section>
   );

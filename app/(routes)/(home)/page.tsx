@@ -13,12 +13,13 @@ const page = () => {
       <Carousel />
       <br /> <br /> <br />
       <HakkimizdaSection/>
-      <br />
+      <br /> <br /> <br />
       <HizmetlerimizSection/>
-      <br />
+      <br /> <br /> <br />
       <ProjelerimizSection/>
-      <br />
+      <br /> <br /> <br />
       <GaleriSection/>
+      <br /> <br /> <br />
     </div>
   );
 };

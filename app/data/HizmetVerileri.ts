@@ -9,51 +9,40 @@ export const hizmetVerileri: Hizmet[] = [
   {
     id: 1,
     iconName: "bordur",
-    title: "Kilit ve Bordür Taşı Uygulamaları",
-    text: "Yol kenarlarında bordür taşı döşeme ve kilit taşı hizmeti sunuyoruz.",
+    title: " Taş Duvar, Parke, Bordür Uygulamaları",
+    text: "Estetik ve dayanıklı taş duvar, parke taşı, kaldırım ve yol döşeme ile bordür uygulamalarını profesyonel şekilde tamamlıyoruz.",
   },
-    {
+  {
     id: 2,
     iconName: "dereIslahi",
-    title: "Dere Islahı",
-    text: "Dere Islahı hizmeti sunuyoruz."
-  },
+    title: "Altyapı, Dere Islahı Uygulamaları",
+    text: "Kanalizasyon, yağmur suyu, elektrik, doğalgaz, fiber ve içme suyu şebekelerine yönelik altyapı ve dere ıslahı çalışmaları gerçekleştiriyoruz.",
 
-  {
+  },
+    {
     id: 3,
-    iconName: "dogalTas",
-    title: "Doğal Taş Uygulamaları",
-    text: "Dekoratif ve kaliteli doğal taş döşeme hizmeti sağlıyoruz.",
+    iconName: "yolAcma",
+    title: "Üst Yapı",
+    text: "Yol kaplama, kaldırım, bordür, asfaltlama ve çevre düzenleme gibi üst yapı çalışmalarını titizlikle ve yüksek kalite standartlarında yürütüyoruz.",
+
   },
   {
     id: 4,
-    iconName: "tasDuvar",
-    title: "Dekoratif Taş Duvar Yapımı",
-    text: "Şık ve sağlam taş duvar inşa ediyoruz.",
-  },
-  {
-    id: 5,
     iconName: "hafriyat",
     title: "Hafriyat ve Kazı Çalışmaları",
-    text: "Profesyonel hafriyat kaldırma ve kazı hizmetleri sunuyoruz.",
+    text: "Şantiye ve inşaat projeleriniz için hızlı, güvenilir ve çevreye duyarlı hafriyat ve kazı işlemleri yapıyoruz.",
   },
+
   {
     id: 6,
-    iconName: "yolAcma",
-    title: "Üst Yapı ve Yol Açma Hizmetleri",
-    text: "Yol açma ve üst yapı düzenleme işlemleri gerçekleştiriyoruz.",
+    iconName: "yolYapimi",
+    title: "Yol Yapım ve Düzenleme",
+    text: "Sağlam altyapı ve kaliteli malzeme kullanımıyla, uzun ömürlü ve konforlu yolların yapımını ve bakımını üstleniyoruz.",
   },
   {
     id: 7,
-    iconName: "yolYapimi",
-    title: "Yol Yapım ve Düzenleme",
-    text: "Kaliteli ve uzun ömürlü yol yapım hizmetleri sağlıyoruz.",
-  },
-  {
-    id: 8,
     iconName: "peyzaj",
     title: "Peyzaj ve Çevre Düzenleme",
-    text: "Peyzaj ve çevre düzenleme hizmetleri sunuyoruz.",
+    text: "Doğayla uyumlu, fonksiyonel ve estetik peyzaj projeleri tasarlayarak çevre düzenlemesini profesyonel şekilde gerçekleştiriyoruz.",
   },
-
 ];

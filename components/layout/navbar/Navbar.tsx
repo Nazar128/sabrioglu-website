@@ -43,7 +43,7 @@ const Navbar = () => {
           className="p-3"
         />
 
-        <nav className="font-inter hidden md:flex space-x-10 text-lg font-bold">
+        <nav className="font-inter hidden md:flex space-x-10 text-lg font-bold text-white">
           <div className="p-2 pt-0.5 border-2 border-transparent hover:rounded-2xl hover:border-2 z-50 hover:border-white">
             <Link href="/" className="text-white m-2 font-extrabold z-50">
               ANA SAYFA
