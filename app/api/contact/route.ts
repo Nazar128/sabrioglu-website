@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { username, email, message, recaptcha } = body;
 
-    // 1. Giriş doğrulama
+    // 1. Boş alan kontrolü
     if (!username || !email || !message || !recaptcha) {
       return NextResponse.json(
         { message: "Tüm alanlar doldurulmalıdır." },
@@ -19,11 +19,17 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2. reCAPTCHA doğrulama
-    const secretKey = process.env.RECAPTCHA_SECRET_KEY!;
-    const verifyURL = "https://www.google.com/recaptcha/api/siteverify";
+    // 2. reCAPTCHA doğrulaması
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+    if (!secretKey) {
+      console.error("RECAPTCHA_SECRET_KEY tanımlı değil.");
+      return NextResponse.json(
+        { message: "Sunucu yapılandırma hatası." },
+        { status: 500 }
+      );
+    }
 
-    const captchaRes = await fetch(verifyURL, {
+    const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -31,31 +37,27 @@ export async function POST(req: Request) {
       body: `secret=${secretKey}&response=${recaptcha}`,
     });
 
-    const captchaData = await captchaRes.json();
-    console.log("reCAPTCHA yanıtı:", captchaData);
+    const captchaData = await verifyRes.json();
+
+    console.log("reCAPTCHA yanıtı:", JSON.stringify(captchaData, null, 2));
 
     if (!captchaData.success) {
+      const errors = captchaData["error-codes"]?.join(", ") || "Bilinmeyen hata";
       return NextResponse.json(
-        { message: "reCAPTCHA doğrulaması başarısız." },
+        { message: `reCAPTCHA doğrulaması başarısız: ${errors}` },
         { status: 400 }
       );
     }
 
-    // 3. XSS koruması
-    const cleanUsername = sanitizeHtml(username, {
-      allowedTags: [],
-      allowedAttributes: {},
-    });
-    const cleanEmail = sanitizeHtml(email, {
-      allowedTags: [],
-      allowedAttributes: {},
-    });
+    // 3. XSS temizliği
+    const cleanUsername = sanitizeHtml(username, { allowedTags: [], allowedAttributes: {} });
+    const cleanEmail = sanitizeHtml(email, { allowedTags: [], allowedAttributes: {} });
     const cleanMessage = sanitizeHtml(message, {
       allowedTags: ["b", "i", "em", "strong", "a", "br", "p"],
       allowedAttributes: { a: ["href", "target"] },
     });
 
-    // 4. E-posta gönderimi
+    // 4. Mail gönderimi
     await resend.emails.send({
       from: "info@sabriogluhafriyat.com.tr",
       to: "info@sabriogluhafriyat.com.tr",
@@ -68,7 +70,7 @@ export async function POST(req: Request) {
       `,
     });
 
-    // 5. Firestore kaydı
+    // 5. Firestore kayıt
     await addDoc(collection(db, "gelenKutusu"), {
       username: cleanUsername,
       email: cleanEmail,
