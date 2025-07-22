@@ -12,8 +12,12 @@ export async function POST(req: Request) {
       `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptcha}`,
       { method: "POST" }
     );
+    
+
 
     const recaptchaResult = await recaptchaResponse.json();
+    console.log("reCAPTCHA yanıtı:", recaptchaResult);
+    
 
     if (!recaptchaResult.success) {
       return NextResponse.json(
@@ -45,4 +49,5 @@ export async function POST(req: Request) {
     console.error("Error:", error);
     return NextResponse.json({ message: "Mesaj başarısız!" }, { status: 500 });
   }
+  
 }  
