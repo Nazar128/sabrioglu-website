@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   description:
     "Sabrioğlu Hafriyat, profesyonel hafriyat, kazı, dolgu, yıkım ve altyapı hizmetleri sunar. İstanbul ve çevresinde güvenilir hafriyat firması.",
   keywords: [
+    "Sabrioğlu Hafriyat İnşaat Sanayi Ticaret Limited Şirketi",
     "Sabrioglu Hafriyat",
     "hafriyat",
     "yıkım",
