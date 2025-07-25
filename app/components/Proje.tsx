@@ -21,10 +21,18 @@ const Proje = () => {
   useEffect(() => {
     const fetchData = async () => {
       const querySnapshot = await getDocs(collection(db, "projects"));
-      const projelerData: Proje[] = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...(doc.data() as Omit<Proje, "id">),
-      }));
+      const projelerData: Proje[] = querySnapshot.docs.map((doc) => {
+        const data = doc.data() as Omit<Proje, "id">;
+
+        // 🔄 .jpg/.png uzantılı görselleri .webp'ye çevir
+        const webpImage = data.image?.replace(/\.(jpg|jpeg|png)$/i, ".webp");
+
+        return {
+          id: doc.id,
+          ...data,
+          image: webpImage,
+        };
+      });
       setProjeler(projelerData);
     };
     fetchData();
@@ -38,19 +46,20 @@ const Proje = () => {
   );
 
   const renderProjeler = (liste: Proje[]) => (
-    <div className="w-full mx-1 grid grid-cols-1 lg:grid-cols-2 gap-6 px-7">
+    <div className="w-full mx-1 grid grid-cols-1 lg:grid-cols-2 gap-6 px-4 sm:px-7">
       {liste.map((project) => (
         <div
           key={project.id}
-          className="relative group overflow-hidden shadow-xl bg-gray-200 "
+          className="relative group overflow-hidden shadow-xl bg-gray-200"
         >
           {project.image ? (
             <Image
               src={project.image}
               alt={project.title}
               width={700}
-              height={600}
-              className="w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-105"
+              height={500}
+              className="w-full h-auto sm:h-[500px] object-cover transition-transform duration-500 group-hover:scale-105"
+              placeholder="empty"
             />
           ) : (
             <div className="w-full h-[500px] bg-gray-400 flex items-center justify-center text-white text-xl italic">
@@ -73,47 +82,46 @@ const Proje = () => {
   );
 
   return (
-    <div className="flex flex-col items-center text-white pt-28  relative overflow-hidden">
-      <div className="flex space-x-6 mb-10">
+    <div className="flex flex-col items-center text-white pt-28 relative overflow-hidden">
+      {/* Sekmeler */}
+      <div className="flex flex-wrap justify-center space-x-4 sm:space-x-6 mb-10">
         <button
           onClick={() => setActiveTab("tum")}
-          className={`px-2 py-2 rounded-full font-semibold transition border-2 border-white ${activeTab === "tum" ? "bg-blue-950 text-white" : "bg-gray-400 hover:bg-blue-650"}`}
+          className={`px-4 py-2 rounded-full font-semibold transition border-2 border-white text-sm sm:text-base ${
+            activeTab === "tum"
+              ? "bg-blue-950 text-white"
+              : "bg-gray-400 hover:bg-blue-650"
+          }`}
         >
           Tümü
         </button>
         <button
           onClick={() => setActiveTab("devam")}
-          className={`px-2 py-2 rounded-full font-semibold transition border-2 border-white ${activeTab === "devam" ? "bg-blue-950 text-white" : "bg-gray-400 hover:bg-blue-650"}`}
+          className={`px-4 py-2 rounded-full font-semibold transition border-2 border-white text-sm sm:text-base ${
+            activeTab === "devam"
+              ? "bg-blue-950 text-white"
+              : "bg-gray-400 hover:bg-blue-650"
+          }`}
         >
           Devam Eden Projeler
         </button>
         <button
           onClick={() => setActiveTab("bitmis")}
-          className={`px-2 py-2 rounded-full font-semibold transition border-2 border-white ${activeTab === "bitmis" ? "bg-blue-950 text-white" : "bg-gray-400 hover:bg-blue-650"}`}
+          className={`px-4 py-2 rounded-full font-semibold transition border-2 border-white text-sm sm:text-base ${
+            activeTab === "bitmis"
+              ? "bg-blue-950 text-white"
+              : "bg-gray-400 hover:bg-blue-650"
+          }`}
         >
           Tamamlanmış Projeler
         </button>
       </div>
 
-      <div className="w-full max-w-5xl text-white">
-        {activeTab === "devam" && (
-          <>
-            <h1 className="text-3xl mb-4 text-gray-200"></h1>
-            {renderProjeler(devamEdenProjeler)}
-          </>
-        )}
-        {activeTab === "bitmis" && (
-          <>
-            <h1 className="text-3xl mb-4 text-gray-200"></h1>
-            {renderProjeler(tamamlananProjeler)}
-          </>
-        )}
-        {activeTab === "tum" && (
-          <>
-            <h1 className="text-3xl mb-4 text-gray-200"></h1>
-            {renderProjeler(projeler)}
-          </>
-        )}
+      {/* Proje Grid */}
+      <div className="w-full max-w-6xl text-white">
+        {activeTab === "devam" && renderProjeler(devamEdenProjeler)}
+        {activeTab === "bitmis" && renderProjeler(tamamlananProjeler)}
+        {activeTab === "tum" && renderProjeler(projeler)}
       </div>
     </div>
   );

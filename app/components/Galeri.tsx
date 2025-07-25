@@ -16,7 +16,6 @@ const turSirasi = [
   "Hafriyat ve Kazı Çalışmaları",
   "Yol Yapım ve Düzenleme",
   "Peyzaj ve Çevre Düzenleme",
-  
 ];
 
 type MediaItem = {
@@ -50,14 +49,14 @@ export default function Galeriler() {
       const querySnapshot = await getDocs(collection(db, "gallery"));
       const data: MediaItem[] = querySnapshot.docs.map((doc) => {
         const d = doc.data();
-
-        const media = d.media || d.image || "";
+        let media = d.media || d.image || "";
+        media = media.replace(/\.(jpg|jpeg|png)$/i, ".webp"); // otomatik .webp dönüşümü
 
         return {
           id: doc.id,
           title: d.title || "Başlıksız",
           tur: d.tur || "Bilinmiyor",
-          type: d.type || (media.endsWith(".mp4") ? "video" : "image"), 
+          type: d.type || (media.endsWith(".mp4") ? "video" : "image"),
           media,
         };
       });
@@ -78,12 +77,13 @@ export default function Galeriler() {
         Foto Galeri
       </h1>
 
+      {/* Kategori Butonları */}
       <div className="flex items-center justify-center gap-4 mb-10 max-w-7xl mx-auto relative">
         <button
           onClick={() => slider.current?.prev()}
-          className="bg-white text-gray-800 rounded-full p-3 shadow hover:bg-gray-300"
+          className="bg-white text-gray-800 rounded-full p-2 sm:p-3 shadow hover:bg-gray-300"
         >
-          <ChevronLeft size={40} />
+          <ChevronLeft size={24} />
         </button>
 
         <div ref={sliderRef} className="keen-slider flex w-[80%] px-5">
@@ -105,12 +105,13 @@ export default function Galeriler() {
 
         <button
           onClick={() => slider.current?.next()}
-          className="bg-white text-gray-800 rounded-full p-3 shadow hover:bg-gray-300"
+          className="bg-white text-gray-800 rounded-full p-2 sm:p-3 shadow hover:bg-gray-300"
         >
-          <ChevronRight size={40} />
+          <ChevronRight size={24} />
         </button>
       </div>
 
+      {/* Galeri Grid */}
       {filtrelenmisFotograflar.length === 0 ? (
         <p className="text-center text-white">Medya bulunamadı.</p>
       ) : (
@@ -130,7 +131,7 @@ export default function Galeriler() {
                   foto.type === "video" ? (
                     <video
                       src={foto.media}
-                      className="w-full h-auto sm:h-60 object-contain "
+                      className="w-full h-auto sm:h-60 object-cover"
                       controls
                     />
                   ) : (
@@ -139,7 +140,8 @@ export default function Galeriler() {
                       alt={foto.title}
                       width={800}
                       height={400}
-                      className="w-full h-60 object-contain "
+                      className="w-full object-cover h-auto"
+                      placeholder="empty"
                     />
                   )
                 ) : (
@@ -157,7 +159,7 @@ export default function Galeriler() {
         </div>
       )}
 
-     
+      {/* Açık Fotoğraf Modal */}
       <AnimatePresence>
         {acikFoto && (
           <motion.div
@@ -179,7 +181,7 @@ export default function Galeriler() {
                   <video
                     src={acikFoto.media}
                     controls
-                    className="w-full max-h-[70vh] object-contain rounded"
+                    className="w-full max-h-[70vh] h-auto object-cover rounded"
                   />
                 ) : (
                   <Image
@@ -187,7 +189,8 @@ export default function Galeriler() {
                     alt={acikFoto.title}
                     width={1200}
                     height={800}
-                    className="w-full max-h-[70vh] object-contain rounded"
+                    className="w-full max-h-[70vh] h-auto object-cover rounded"
+                    placeholder="empty"
                   />
                 )
               ) : (
