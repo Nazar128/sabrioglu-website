@@ -52,6 +52,8 @@ const ProjelerimizSection = () => {
               alt={project.title}
               width={500}
               height={500}
+              placeholder="empty"
+              priority
               className="w-full h-[300px] object-cover transition-transform duration-500 group-hover:scale-105 rounded-2xl"
             />
             <div className="absolute top-4 left-4 text-white text-2xl font-bold drop-shadow-lg">

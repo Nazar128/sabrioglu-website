@@ -53,6 +53,7 @@ const GaleriSection = () => {
             {item.type === "video" ? (
               <video
                 src={item.media}
+                preload="none"
                 controls
                 className="w-full h-[300px] object-contain"
               />
@@ -62,6 +63,8 @@ const GaleriSection = () => {
                 alt={item.title}
                 width={500}
                 height={250}
+                placeholder="empty"
+                priority
                 className="w-full h-[250px] object-cover transition-transform duration-500 p-3 group-hover:scale-110"
               />
             )}

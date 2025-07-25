@@ -50,6 +50,8 @@ const Proje = () => {
               alt={project.title}
               width={700}
               height={600}
+              placeholder="empty"
+              priority
               className="w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (

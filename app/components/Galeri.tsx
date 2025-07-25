@@ -131,6 +131,7 @@ export default function Galeriler() {
                     <video
                       src={foto.media}
                       className="w-full h-auto sm:h-60 object-contain "
+                      preload="none"
                       controls
                     />
                   ) : (
@@ -139,6 +140,8 @@ export default function Galeriler() {
                       alt={foto.title}
                       width={800}
                       height={400}
+                      placeholder="empty"
+                      priority
                       className="w-full h-60 object-contain "
                     />
                   )
@@ -178,8 +181,10 @@ export default function Galeriler() {
                 acikFoto.type === "video" ? (
                   <video
                     src={acikFoto.media}
-                    controls
                     className="w-full max-h-[70vh] object-contain rounded"
+                     preload="none"
+                    controls
+                    
                   />
                 ) : (
                   <Image
@@ -187,6 +192,8 @@ export default function Galeriler() {
                     alt={acikFoto.title}
                     width={1200}
                     height={800}
+                    placeholder="empty"
+                    priority
                     className="w-full max-h-[70vh] object-contain rounded"
                   />
                 )
