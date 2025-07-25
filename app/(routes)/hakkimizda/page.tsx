@@ -1,5 +1,3 @@
-'use client';
-
 
 import HakkimizdaOzellikler from '@/app/components/HakkimizdaOzellikler';
 import HakkimizdaKartlar from '@/app/components/HakkimizdaKartlar';
