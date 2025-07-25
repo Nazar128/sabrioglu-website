@@ -4,6 +4,24 @@ import ContactForm from "@/app/components/ContactForm";
 import Image from "next/image";
 import React from "react";
 
+export const metadata = {
+  title: "İletişim | Sabrioğlu Hafriyat",
+  description:
+    "Sabrioğlu Hafriyat ile iletişime geçmek için telefon numarası ve e-posta  bilgilerine buradan ulaşabilirsiniz.",
+  openGraph: {
+    title: "İletişim | Sabrioğlu Hafriyat",
+    description: "Bizimle iletişime geçin. Telefon, e-posta ve adres bilgileri burada.",
+    url: "https://sabriogluhafriyat.com.tr/iletisim",
+    siteName: "Sabrioğlu Hafriyat",
+
+    locale: "tr_TR",
+    type: "website",
+  },
+};
+
+
+
+
 const ContactPage = () => {
   return (
     <div className="flex items-center justify-center px-4 py-20 md:mt-16">

@@ -5,34 +5,28 @@ import Footer from "@/components/layout/footer/Footer";
 import NavbarWrapper from "./components/NavbarWrapper";
 
 export const metadata: Metadata = {
-  title: "Sabrioglu Hafriyat | Hafriyat, Yıkım ve Altyapı Hizmetleri",
+  title: "Hafriyat, Yıkım ve Altyapı Hizmetleri | Sabrioğlu Hafriyat",
   description:
-    "Sabrioğlu Hafriyat, profesyonel hafriyat, kazı, dolgu, yıkım ve altyapı hizmetleri sunar. İstanbul ve çevresinde güvenilir hafriyat firması.",
+    "İstanbul ve çevresinde profesyonel hafriyat, kazı, dolgu, yıkım ve altyapı hizmetleri. Güvenilir ve deneyimli hafriyat firması Sabrioğlu Hafriyat.",
   keywords: [
-    "Sabrioğlu Hafriyat İnşaat Sanayi Ticaret Limited Şirketi",
-    "Sabrioglu Hafriyat",
-    "hafriyat",
-    "yıkım",
-    "altyapı",
-    "kazı",
-    "dolgu",
+    "Sabrioğlu Hafriyat",
     "hafriyat firması",
     "istanbul hafriyat",
-    "hafriyat hizmeti",
-    "hafriyat şirketi",
+    "kazı dolgu yıkım",
+    "altyapı hizmetleri"
   ],
   icons: {
     icon: "/images/O (7).ico",
   },
   openGraph: {
-    title: "Sabrioglu Hafriyat",
+    title: "Hafriyat, Yıkım ve Altyapı Hizmetleri | Sabrioğlu Hafriyat",
     description:
-      "Profesyonel hafriyat, yıkım ve altyapı hizmetleri. İstanbul'un güvenilir hafriyat firması.",
+      "İstanbul’un güvenilir hafriyat firması. Profesyonel kazı, dolgu, yıkım ve altyapı çözümleri.",
     url: "https://sabriogluhafriyat.com.tr",
     siteName: "Sabrioglu Hafriyat",
     images: [
       {
-        url: "/images/anasayfa9.jpeg", 
+        url: "https://sabriogluhafriyat.com.tr/images/anasayfa9.jpeg",
         width: 1200,
         height: 630,
         alt: "Sabrioglu Hafriyat",
@@ -42,6 +36,7 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
+
 
 
 export default function RootLayout({

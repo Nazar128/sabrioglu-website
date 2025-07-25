@@ -11,15 +11,16 @@ export async function GET() {
   const snapshot = await getDocs(collection(db, "projects"));
   const projects = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-  const staticUrls = ["", "hakkimizda", "hizmetlerimiz", "galeri", "iletisim"];
+  const staticUrls = ["/", "hakkimizda", "hizmetlerimiz", "galeri", "iletisim"];
 
   const urls = [
     ...staticUrls.map(
       (slug) => `
   <url>
-    <loc>${baseUrl}/${slug}</loc>
+    <loc>${baseUrl}${slug === "/" ? "" : `/${slug}`}</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <lastmod>${new Date().toISOString()}</lastmod>
   </url>`
     ),
     ...projects.map(
@@ -28,6 +29,7 @@ export async function GET() {
     <loc>${baseUrl}/projelerimiz/${project.id}</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+    <lastmod>${new Date().toISOString()}</lastmod>
   </url>`
     ),
   ];
@@ -42,6 +44,7 @@ ${urls.join("\n")}
     status: 200,
     headers: {
       "Content-Type": "application/xml",
+      "Cache-Control": "s-maxage=3600, stale-while-revalidate"
     },
   });
 }
