@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "altyapı hizmetleri"
   ],
   icons: {
-    icon: "/images/O (7).ico",
+    icon: "favicon.ico",
   },
   openGraph: {
     title: "Hafriyat, Yıkım ve Altyapı Hizmetleri | Sabrioğlu Hafriyat",
